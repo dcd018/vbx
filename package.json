@@ -1,0 +1,85 @@
+{
+  "name": "vbx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-db": "cd database && type docker-compose >/dev/null 2>&1 || { echo >&2 'docker-compose is requiered but not installed.'; exit 1; } && docker-compose up -d",
+    "stop-db": "cd database && docker-compose down",
+    "deploy-api": "type prisma >/dev/null 2>&1 || { echo >&2 'prisma is requiered but not installed (yarn global add prisma).'; exit 1; } && until prisma deploy; do  echo 'No response from server, retrying..'; done",
+    "clean": "rm -rf build && mkdir build",
+    "build": "npm run clean && ./node_modules/.bin/babel ./src -s -D -d ./build",
+    "lint": "eslint src/ --quiet",
+    "start": "yarn start-db && yarn deploy-api && yarn build && node ./build/index.js",
+    "debug": "node --debug ./build/index.js",
+    "test": "yarn jest",
+    "validate": "yarn lint; yarn test && npm outdated --depth 0",
+    "start-express": "yarn build && cd ./build/api/express && yarn start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.2.0",
+    "graphql": "^14.0.2",
+    "graphql-yoga": "^1.16.9",
+    "lodash": "^4.17.11",
+    "prisma": "^1.23.2",
+    "prisma-binding": "^2.2.12",
+    "twilio": "^3.26.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/plugin-transform-destructuring": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "eslint": "^5.11.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^22.1.2",
+    "eslint-watch": "^4.0.2",
+    "jest": "^23.6.0",
+    "regenerator-runtime": "^0.13.1"
+  },
+  "eslintConfig": {
+    "plugins": [
+      "import",
+      "jest"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2017,
+      "sourceType": "module"
+    },
+    "env": {
+      "es6": true,
+      "node": true,
+      "jest": true
+    },
+    "extends": [
+      "eslint:recommended"
+    ],
+    "rules": {
+      "semi": [
+        "error",
+        "always"
+      ],
+      "no-console": [
+        "error",
+        "never"
+      ],
+      "jest/no-focused-tests": 2,
+      "jest/no-identical-title": 2
+    }
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
+  }
+}

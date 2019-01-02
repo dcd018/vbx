@@ -1,0 +1,14 @@
+{
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-transform-destructuring",
+    "@babel/plugin-proposal-object-rest-spread"
+  ],
+  "ignore": [
+    "node_modules",
+    "src/api/express/node_modules"
+  ]
+}

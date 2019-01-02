@@ -1,0 +1,36 @@
+# import Entity from "./generated/prisma.graphql"
+# import Media from "./generated/prisma.graphql"
+# import Message from "./generated/prisma.graphql"
+
+input EntityInput {
+  phone: String
+  city: String
+  state: String
+  zip: String
+  country: String
+}
+
+input MediaInput {
+  contentType: String
+  url: String
+}
+
+type Query {
+  messages: [Message!]!
+  message(id: ID!): Message!
+}
+
+type Mutation {
+  createMessage(
+    externalId: String!
+    accountId: String!
+    provider: String!
+    from: EntityInput
+    status: String
+    numMedia: String
+    media: [MediaInput!]
+    body: String!
+    numSegments: String
+    apiVersion: String
+  ): Message
+}

@@ -1,0 +1,30 @@
+type Entity {
+  id: ID! @unique
+  message: [Message!] @relation(name: "MessageEntity")
+  phone: String @unique
+  city: String
+  state: String
+  zip: String
+  country: String
+}
+
+type Media {
+  id: ID! @unique
+  message: Message! @relation(name: "MessageMedia")
+  contentType: String
+  url: String
+}
+
+type Message {
+  id: ID! @unique
+  externalId: String!
+  accountId: String!
+  provider: String!
+  from: Entity @relation(name: "MessageEntity")
+  status: String
+  numMedia: String
+  media: [Media!]! @relation(name: "MessageMedia")
+  body: String!
+  numSegments: String
+  apiVersion: String
+}
