@@ -1,5 +1,6 @@
-endpoint: http://localhost:4466
-datamodel: datamodel.prisma
+endpoint: ${env:PRISMA_ENDPOINT} #http://localhost:4466
+datamodel: ${env:PRISMA_DATAMODEL} #datamodel.prisma
+secret: ${env:PRISMA_SECRET}
 hooks:
   post-deploy:
     - graphql get-schema

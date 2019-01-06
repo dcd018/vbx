@@ -1,6 +1,6 @@
-# import Entity from "./generated/prisma.graphql"
-# import Media from "./generated/prisma.graphql"
-# import Message from "./generated/prisma.graphql"
+# import Entity from "../generated/prisma.graphql"
+# import Media from "../generated/prisma.graphql"
+# import Message from "../generated/prisma.graphql"
 
 input EntityInput {
   phone: String

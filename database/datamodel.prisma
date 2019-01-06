@@ -23,7 +23,7 @@ type Message {
   from: Entity @relation(name: "MessageEntity")
   status: String
   numMedia: String
-  media: [Media!]! @relation(name: "MessageMedia")
+  media: [Media!] @relation(name: "MessageMedia")
   body: String!
   numSegments: String
   apiVersion: String

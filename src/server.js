@@ -1,16 +1,17 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from 'prisma-binding';
 import { graphql } from './config';
-import { Query, Message, Mutation } from './resolvers';
+import { default as typeDefs } from './typeDefs';
+import { default as resolvers } from './resolvers';
 
-const { apiTypeDefs, dbTypeDefs, secret, debug } = graphql;
+const { typeDefs: generated, secret, debug } = graphql;
 export default new GraphQLServer({
-  typeDefs: apiTypeDefs,
-  resolvers: { Query, Message, Mutation },
+  typeDefs,
+  resolvers,
   context: req => ({
     ...req,
     db: new Prisma({
-      typeDefs: dbTypeDefs,
+      typeDefs: generated,
       endpoint: graphql.getEndpoint(),
       secret,
       debug

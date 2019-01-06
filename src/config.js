@@ -1,5 +1,4 @@
 export const graphql = {
-  apiTypeDefs: `${__dirname}/schema.graphql`,
   dbTypeDefs: `${__dirname}/generated/prisma.graphql`,
   protocol: process.env.PROTOCOL || 'http',
   host: process.env.HOST || 'localhost',
